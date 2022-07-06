@@ -12,4 +12,6 @@ class Amortizacion:
         self.numeroCuota = numeroCuota
 
     def __str__(self):
-        return "Amortizacion[" + str(self.numeroCuota) + "]" + " Cuota total: " + str(self.cuota)
+        return "Amortizacion[" + str(self.numeroCuota) + "]" + " Cuota total: " + str(
+            self.cuota) + "Intereses: " + str(self.interes) + " Cuota amortizacion" + "Total amortizado: " + str(
+            self.totalAmortizacion) + " Capital por amortizar: " + str(self.capitalPorAmortizar)

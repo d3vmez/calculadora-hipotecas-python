@@ -23,7 +23,7 @@ class Hipoteca:
         self.prestamo = prestamo
         self.capitalAportado = capitalAportado
         self.capitalInmueble = capitalInmueble
-        self.totalIntreses = totalIntereses
+        self.totalIntereses = totalIntereses
 
     # Método para añadir una amortizacion a la hipoteca
     def anadirAmortizacion(self,amortizacion):

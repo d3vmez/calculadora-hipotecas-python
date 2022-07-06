@@ -18,10 +18,11 @@ class PonderacionInteresServicio:
     PESO_PRESTAMOS =    0.2     *       PESO_TOTAL
     PESO_VIVIENDA =     0.05    *       PESO_TOTAL
 
+    # Variable para acumular el peso de todos los parámetros
     acumuladorPesos = 0.0
 
     # Método para calcular el interés de la hipoteca a tipo fijo
-    def calcularInteresTotal(hipoteca:Hipoteca):
+    def calcularInteresTotal(self,hipoteca:Hipoteca):
 
         # Obtener el valor de los parámetros
         ahorros = hipoteca.ahorros
@@ -31,6 +32,25 @@ class PonderacionInteresServicio:
         primeraVivienda = hipoteca.esPrimeraVivienda
 
         # Calcular cada uno de los pesos de los parámetros
+        self.calcularPesoAhrorro(ahorros)
+        self.calcularPesoCuota(nCuotas)
+        self.calcularPesoNomina(nomina)
+        self.calcularPesoOtrosPrestamos(otrosPrestamos)
+        self.calcularPesoPrimeraVivienda(primeraVivienda)
+
+        # Calcular el valor en porcentaje de un único peso
+        valorPeso = self.calcularPeso()
+
+        # Número de pesos totales
+        nPesos = self.acumuladorPesos
+
+        # Resetear acumulador a 0
+        self.acumuladorPesos = 0.0
+
+        # Calcular interés
+        interesTotal = (valorPeso * nPesos) + self.INTERES_MIN
+
+        return interesTotal
 
     # Métodos auxiliares
     #################################################################
