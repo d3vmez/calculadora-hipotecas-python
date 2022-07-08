@@ -1,7 +1,7 @@
 
 # Este servicio se encarga de generar un valor para el interés
 # de una hipoteca a tipo fijo según unos parámetros
-from flaskr.models.Hipoteca import Hipoteca
+from app.models.Hipoteca import Hipoteca
 
 
 class PonderacionInteresServicio:

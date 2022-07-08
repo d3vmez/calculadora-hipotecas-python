@@ -2,7 +2,7 @@ from abc import abstractmethod
 from abc import ABCMeta
 
 # Interfaz para el servicio Hipoteca
-from flaskr.models import Hipoteca
+from app.models import Hipoteca
 
 
 class IHipotecaServicio(metaclass=ABCMeta):

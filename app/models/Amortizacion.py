@@ -1,4 +1,9 @@
+
+
 # Clase Amortizacion
+from flask import json
+
+
 class Amortizacion:
 
     # Constructor
@@ -15,3 +20,6 @@ class Amortizacion:
         return "Amortizacion[" + str(self.numeroCuota) + "]" + " Cuota total: " + str(
             self.cuota) + "Intereses: " + str(self.interes) + " Cuota amortizacion" + "Total amortizado: " + str(
             self.totalAmortizacion) + " Capital por amortizar: " + str(self.capitalPorAmortizar)
+
+    def toJson(self):
+        return json.dumps(self, default=lambda o: o.__dict__)

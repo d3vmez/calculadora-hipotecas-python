@@ -12,7 +12,7 @@ def nums(first_number, last_number, step=1):
 
 class HipotecaVariableServicio(IHipotecaServicio):
 
-    EURIBOR = 0.2/(100 * Hipoteca.N_MENSUALIDADES)
+    EURIBOR = 0.8/(100 * Hipoteca.N_MENSUALIDADES)
     DIFERENCIAL = 2.5
 
     amortizacionServicio = AmortizacionServicio()
@@ -71,6 +71,7 @@ class HipotecaVariableServicio(IHipotecaServicio):
                 self.recalcularHipoteca(hipoteca)
                 # Se actualizan la nueva tasa de interés
                 tasaInteres = self.calcularTasaInteres(hipoteca)
+                print(str(self.EURIBOR * (1200) + 2.5))
                 acumuladorPlazos = 1
 
             acumuladorPlazos = acumuladorPlazos + 1
@@ -96,7 +97,7 @@ class HipotecaVariableServicio(IHipotecaServicio):
 
     # Método para cambiar el valor del EURIBOR
     def variarEURIBOR(self):
-        EURIBOR = 0.2/(100 * Hipoteca.N_MENSUALIDADES)
+        self.EURIBOR = 0.8/(100 * Hipoteca.N_MENSUALIDADES)
         variacionEURIBOR = random.uniform(-1.0, 1.0)
         self.EURIBOR += variacionEURIBOR/(100 * Hipoteca.N_MENSUALIDADES)
 

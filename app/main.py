@@ -1,19 +1,48 @@
-from flaskr.models.Hipoteca import Hipoteca
-from flaskr.services.impl.HipotecaFijaServicio import HipotecaFijaServicio
-from flaskr.services.impl.HipotecaVariableServicio import HipotecaVariableServicio
-from flaskr.services.impl.PonderacionInteresServicio import PonderacionInteresServicio
+from flask import Flask , jsonify , request
+from flask_cors import CORS, cross_origin
 
-hipotecaFijaServicio = HipotecaFijaServicio ()
+from app.models.Hipoteca import Hipoteca
+from app.models.HipotecaDTO import HipotecaDTO
+from app.models.Simulacion import Simulacion
+from app.services.impl.HipotecaFijaServicio import HipotecaFijaServicio
+from app.services.impl.HipotecaVariableServicio import HipotecaVariableServicio
+from app.services.impl.SimulacionServicio import SimulacionServicio
+
+app = Flask(__name__)
+cors = CORS(app)
+app.config["CORS-HEADERS"] = "Content-Type"
+
+hipotecaFijaServicio = HipotecaFijaServicio()
 hipotecaVariableServicio = HipotecaVariableServicio()
-hipoteca = Hipoteca(0.0, 120000.0, 40000.0, 0.0, 0.0, 2, 0, 0.0, "fijo", "hoy", 0.0, 1000.0, 10000.0, True)
+simulacionServicio = SimulacionServicio()
 
-hipotecaVariableServicio.calcularAmortizaciones(hipoteca)
+@app.route("/api/calculadora" , methods=["POST"])
+@cross_origin()
+def calculadoraSubmit():
+    # Almacenar el JSON recibido en un objeto Hipoteca
+    hipoteca = Hipoteca(request.json['totalIntereses'] , request.json['capitalInmueble'],
+                        request.json["capitalAportado"] , request.json["prestamo"] , request.json["cuota"] ,
+                        request.json["plazo"] , request.json["plazoRestante"] , request.json["tasaInteres"] ,
+                        request.json["tipoInteres"] , request.json["fechaNacimiento"] , request.json["ahorros"] ,
+                        request.json["nomina"] , request.json["otrosPrestamos"] , request.json["esPrimeraVivienda"])
 
-print(str(hipoteca.tasaInteres))
-capitalPorAmortizar = hipoteca.amortizaciones[len(hipoteca.amortizaciones) -1].capitalPorAmortizar
+    simulacion = Simulacion(None,None,None)
+    simulacionServicio.generarHipoteca(hipoteca,simulacion)
+    porcentaje = simulacionServicio.calcularProbabilidad(simulacion)
 
+    hipoteca.amortizaciones = list()
 
-print(str(capitalPorAmortizar))
-for a in hipoteca.amortizaciones:
-    print(str(a))
+    if request.json["tipoInteres"] == "fija":
+        hipotecaFijaServicio.calcularAmortizaciones(hipoteca)
 
+    else:
+        hipotecaVariableServicio.calcularAmortizaciones(hipoteca)
+
+    response = HipotecaDTO(hipoteca,porcentaje)
+
+    print(str(porcentaje))
+
+    return response.toJson()
+
+if __name__ == "__main__":
+    app.run(None , 8859 , True)

@@ -12,10 +12,6 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{/css/calculadora.css}">
 
-    <!-- Bootstrap core CSS -->
-    <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
     <!-- DataTables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 
@@ -38,46 +34,46 @@
                     <div class="h-100 p-5 text-white bg-dark rounded-3">
                         <h2>Introduce tus datos</h2>
 
-                        <form class="form-horizontal align-items-center" method="post">
+                        <form id="formulario" class="form-horizontal align-items-center">
                             <div class="row gx-3">
                                 <div class="col-lg-6 mb-4">
                                     <label class="form-label">Precio inmueble</label> <input type="number" required
-                                        class="form-control" placeholder="" step="any" min="0" />
+                                        class="form-control" placeholder="" step="any" min="0" name="capitalInmueble"/>
                                 </div>
 
                                 <div class="col-lg-6 mb-4">
                                     <label class="form-label">Importe inicial</label> <input step="any" min="0"
-                                        type="number" required class="form-control">
+                                        type="number" required class="form-control" name="capitalAportado">
                                 </div>
                             </div>
 
                             <div class="row gx-3">
                                 <div class="col-lg-4 mb-4">
                                     <label class="form-label">Ahorros</label> <input type="number" required
-                                        class="form-control" placeholder="" step="any" min="0" />
+                                        class="form-control" placeholder="" step="any" min="0" name="ahorros"/>
                                 </div>
 
                                 <div class="col-lg-4 mb-4">
                                     <label class="form-label">Nómina</label> <input type="number" required
-                                        class="form-control" placeholder="" step="any" min="0" />
+                                        class="form-control" placeholder="" step="any" min="0" name="nomina"/>
                                 </div>
 
                                 <div class="col-lg-4 mb-4">
                                     <label class="form-label">Otros préstamos</label> <input type="number" required
-                                        class="form-control" placeholder="" step="any" min="0" />
+                                        class="form-control" placeholder="" step="any" min="0" name="otrosPrestamos"/>
                                 </div>
                             </div>
 
                             <div class="row gx-3">
                                 <div class="col-lg-6 mb-4">
                                     <label class="form-label">Plazo en años</label> <input type="number" min="1"
-                                        required class="form-control" placeholder="">
+                                        required class="form-control" placeholder="" name="plazo">
                                 </div>
 
 
                                 <div class="col-lg-6 mb-4">
                                     <label class="form-label">Fecha nacimiento</label> <input type="date" required
-                                        class="form-control">
+                                        class="form-control" name="fechaNacimiento">
                                 </div>
                             </div>
 
@@ -86,8 +82,10 @@
                                     <label>Tipo de interés</label>
 
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input"> <label
-                                            class="custom-control-label">model</label>
+                                        <input type="radio" class="custom-control-input" name="tipoInteres" value="fijo"> <label
+                                            class="custom-control-label">Interés fijo</label>
+                                        <input type="radio" class="custom-control-input" name="tipoInteres" value="variable"> <label
+                                            class="custom-control-label">Interés variable</label>
                                     </div>
 
                                 </div>
@@ -95,7 +93,7 @@
                                 <div class="form-group col-lg-6">
                                     <label>¿Es primera vivienda?</label>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input"> <label
+                                        <input type="checkbox" class="custom-control-input" name="esPrimeraVivienda"> <label
                                             class="custom-control-label">Primera
                                             vivienda</label>
                                     </div>
@@ -106,8 +104,7 @@
 
                             <div class="row mt-3">
                                 <div class="col-auto">
-                                    <button class="btn btn-primary" type="submit">Calcular
-                                        hipoteca</button>
+                                    <input class="btn btn-primary" type="submit" value="Calcular hipoteca"></input>
                                 </div>
 
                             </div>
@@ -230,6 +227,7 @@
         src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
     <script type="text/javascript" src="./static/scripts/table.js"></script>
+    <script type="text/javascript" src="./static/scripts/calculadora.js"></script>
 
 </body>
 

@@ -1,7 +1,7 @@
-from flaskr.services.IHipotecaServicio import IHipotecaServicio
-from flaskr.services.impl.AmortizacionServicio import AmortizacionServicio
-from flaskr.services.impl.PonderacionInteresServicio import PonderacionInteresServicio
-from flaskr.models.Hipoteca import Hipoteca
+from app.services.IHipotecaServicio import IHipotecaServicio
+from app.services.impl.AmortizacionServicio import AmortizacionServicio
+from app.services.impl.PonderacionInteresServicio import PonderacionInteresServicio
+from app.models.Hipoteca import Hipoteca
 
 def nums(first_number, last_number, step=1):
     return range (first_number, last_number + 1, step)

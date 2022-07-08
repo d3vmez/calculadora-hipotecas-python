@@ -1,4 +1,12 @@
+
+
 # Clase Hipoteca
+from collections import namedtuple
+
+from flask import json
+from flask.json import JSONEncoder
+
+
 class Hipoteca:
     # Constante para almacenar el número de mensualidades
     # que existirán en un año
@@ -55,3 +63,7 @@ class Hipoteca:
 
     def __str__(self):
         return "Hipoteca: " + self.amortizaciones
+
+    def toJson(self):
+        return json.dumps(self, default=lambda o: o.__dict__)
+
