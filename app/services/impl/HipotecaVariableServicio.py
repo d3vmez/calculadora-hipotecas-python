@@ -71,7 +71,6 @@ class HipotecaVariableServicio(IHipotecaServicio):
                 self.recalcularHipoteca(hipoteca)
                 # Se actualizan la nueva tasa de interés
                 tasaInteres = self.calcularTasaInteres(hipoteca)
-                print(str(self.EURIBOR * (1200) + 2.5))
                 acumuladorPlazos = 1
 
             acumuladorPlazos = acumuladorPlazos + 1

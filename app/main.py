@@ -1,3 +1,4 @@
+import flask
 from flask import Flask , jsonify , request
 from flask_cors import CORS, cross_origin
 
@@ -20,11 +21,13 @@ simulacionServicio = SimulacionServicio()
 @cross_origin()
 def calculadoraSubmit():
     # Almacenar el JSON recibido en un objeto Hipoteca
-    hipoteca = Hipoteca(request.json['totalIntereses'] , request.json['capitalInmueble'],
-                        request.json["capitalAportado"] , request.json["prestamo"] , request.json["cuota"] ,
-                        request.json["plazo"] , request.json["plazoRestante"] , request.json["tasaInteres"] ,
-                        request.json["tipoInteres"] , request.json["fechaNacimiento"] , request.json["ahorros"] ,
-                        request.json["nomina"] , request.json["otrosPrestamos"] , request.json["esPrimeraVivienda"])
+    print(type(request.json['capitalInmueble']))
+    hipoteca = Hipoteca(request.json['totalIntereses'], request.json['capitalInmueble'],
+                        request.json["capitalAportado"] , request.json["prestamo"] , request.json["cuota"],
+                        request.json["plazo"] , request.json["plazoRestante"] , request.json["tasaInteres"],
+                        request.json["tipoInteres"] , request.json["fechaNacimiento"] , request.json["ahorros"],
+                        request.json["nomina"],request.json["otrosPrestamos"], request.json["esPrimeraVivienda"] )
+
 
     simulacion = Simulacion(None,None,None)
     simulacionServicio.generarHipoteca(hipoteca,simulacion)
@@ -32,9 +35,9 @@ def calculadoraSubmit():
 
     hipoteca.amortizaciones = list()
 
-    if request.json["tipoInteres"] == "fija":
+    if request.json["tipoInteres"] == "fijo":
         hipotecaFijaServicio.calcularAmortizaciones(hipoteca)
-
+        print("cuota" + str(hipoteca.cuota))
     else:
         hipotecaVariableServicio.calcularAmortizaciones(hipoteca)
 
