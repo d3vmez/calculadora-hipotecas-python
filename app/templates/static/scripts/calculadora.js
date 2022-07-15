@@ -1,4 +1,7 @@
 const formulario = document.getElementById('formulario');
+const options = { style: 'currency', currency: 'EUR' };
+const numberFormat = new Intl.NumberFormat('es-ES', options);
+
 formulario.addEventListener('submit', function(event){
     event.preventDefault();
 
@@ -29,7 +32,8 @@ formulario.addEventListener('submit', function(event){
         method: "POST",
         body: JSON.stringify(s),
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization" : "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Ik1hcmNvcyIsInBhc3N3b3JkIjoxMjMsImV4cCI6MTY1Nzc5NjIyNH0.tEATWj83zVpwUduR4o96CEortX-jgkCAxIZ65KLZOg8"
         }
     })
 
@@ -50,11 +54,11 @@ function imprimirTabla(datos){
     for (let i = 0; i < datos.length; i++) {
         var row = `<tr>
                 <td>${datos[i].numeroCuota}</td>
-                <td>${datos[i].cuota}</td>
-                <td>${datos[i].interes}</td>
-                <td>${datos[i].cuotaAmortizacion}</td>
-                <td>${datos[i].totalAmortizacion}</td>
-                <td>${datos[i].capitalPorAmortizar}</td>
+                <td>${numberFormat.format(datos[i].cuota)}</td>
+                <td>${numberFormat.format(datos[i].interes)}</td>
+                <td>${numberFormat.format(datos[i].cuotaAmortizacion)}</td>
+                <td>${numberFormat.format(datos[i].totalAmortizacion)}</td>
+                <td>${numberFormat.format(Math.abs(datos[i].capitalPorAmortizar))}</td>
               </tr>`
 
         html = html + row
@@ -68,15 +72,14 @@ function imprimirTabla(datos){
 //Método para pintar datos en pantalla
 function imprimirTarjetas(datos){
 
-    document.getElementById('precioInmuebleCard').innerHTML = datos.hipoteca.capitalInmueble;
-    document.getElementById('importeInicialCard').innerHTML = datos.hipoteca.capitalAportado;
-    document.getElementById('prestamoCard').innerHTML = datos.hipoteca.prestamo;
-    document.getElementById('cuotaMensualCard').innerHTML = datos.hipoteca.cuota;
+    document.getElementById('precioInmuebleCard').innerHTML = numberFormat.format(datos.hipoteca.capitalInmueble);
+    document.getElementById('importeInicialCard').innerHTML = numberFormat.format(datos.hipoteca.capitalAportado);
+    document.getElementById('prestamoCard').innerHTML = numberFormat.format(datos.hipoteca.prestamo);
+    document.getElementById('cuotaMensualCard').innerHTML = numberFormat.format(datos.hipoteca.cuota);
     document.getElementById('tipointeresCard').innerHTML = datos.hipoteca.tipoInteres;
-    document.getElementById('interesCard').innerHTML = datos.hipoteca.tasaInteres;
-    document.getElementById('totalInteresCard').innerHTML = datos.hipoteca.totalIntereses;
-    console.log(document.getElementById('porcentajeCard'))
-    document.getElementById('porcentajeCard').innerHTML = datos.porcentaje;
+    document.getElementById('interesCard').innerHTML = Number.parseFloat(datos.hipoteca.tasaInteres).toFixed(2) + '%';
+    document.getElementById('totalInteresCard').innerHTML = numberFormat.format(datos.hipoteca.totalIntereses);
+    document.getElementById('porcentajeCard').innerHTML = Number.parseFloat(datos.porcentaje).toFixed(2) + '%';
     
 
 }

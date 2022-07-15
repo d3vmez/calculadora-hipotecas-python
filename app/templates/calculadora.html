@@ -13,6 +13,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/calculadora.css}">
 
     <!-- DataTables -->
+    <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 
     <link rel="stylesheet" type="text/css" href="./static/css/calculadora.css">
@@ -37,43 +40,43 @@
                         <form id="formulario" class="form-horizontal align-items-center">
                             <div class="row gx-3">
                                 <div class="col-lg-6 mb-4">
-                                    <label class="form-label">Precio inmueble</label> <input type="number" required
-                                        class="form-control" placeholder="" step="any" min="0" name="capitalInmueble"/>
+                                    <label class="form-label">Precio inmueble</label> <input type="number" required id="capitalInmueble"
+                                        class="form-control" placeholder="" step="any" min="0" name="capitalInmueble" value="120000"/>
                                 </div>
 
                                 <div class="col-lg-6 mb-4">
-                                    <label class="form-label">Importe inicial</label> <input step="any" min="0"
-                                        type="number" required class="form-control" name="capitalAportado">
+                                    <label class="form-label">Importe inicial</label> <input step="any" min="0" required id="capitalAportado"
+                                        type="number" required class="form-control" name="capitalAportado" value="40000">
                                 </div>
                             </div>
 
                             <div class="row gx-3">
                                 <div class="col-lg-4 mb-4">
-                                    <label class="form-label">Ahorros</label> <input type="number" required
-                                        class="form-control" placeholder="" step="any" min="0" name="ahorros"/>
+                                    <label class="form-label">Ahorros</label> <input type="number" required id="ahorros"
+                                        class="form-control" placeholder="" step="any" min="0" name="ahorros" value="0"/>
                                 </div>
 
                                 <div class="col-lg-4 mb-4">
-                                    <label class="form-label">Nómina</label> <input type="number" required
-                                        class="form-control" placeholder="" step="any" min="0" name="nomina"/>
+                                    <label class="form-label">Nómina</label> <input type="number" required id="nomina"
+                                        class="form-control" placeholder="" step="any" min="0" name="nomina" value="1000"/>
                                 </div>
 
                                 <div class="col-lg-4 mb-4">
-                                    <label class="form-label">Otros préstamos</label> <input type="number" required
-                                        class="form-control" placeholder="" step="any" min="0" name="otrosPrestamos"/>
+                                    <label class="form-label">Otros préstamos</label> <input type="number" required id="otrosPrestamos"
+                                        class="form-control" placeholder="" step="any" min="0" name="otrosPrestamos" value="10000"/>
                                 </div>
                             </div>
 
                             <div class="row gx-3">
                                 <div class="col-lg-6 mb-4">
                                     <label class="form-label">Plazo en años</label> <input type="number" min="1"
-                                        required class="form-control" placeholder="" name="plazo">
+                                        required class="form-control" placeholder="" name="plazo" id="plazo" value="2">
                                 </div>
 
 
                                 <div class="col-lg-6 mb-4">
                                     <label class="form-label">Fecha nacimiento</label> <input type="date" required
-                                        class="form-control" name="fechaNacimiento">
+                                        class="form-control" name="fechaNacimiento" id="fechaNacimiento" value="3-2-1997">
                                 </div>
                             </div>
 
@@ -82,9 +85,9 @@
                                     <label>Tipo de interés</label>
 
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="tipoInteres" value="fijo"> <label
+                                        <input type="radio" class="custom-control-input" name="tipoInteres" id="tipoInteres" value="fijo" checked> <label
                                             class="custom-control-label">Interés fijo</label>
-                                        <input type="radio" class="custom-control-input" name="tipoInteres" value="variable"> <label
+                                        <input type="radio" class="custom-control-input" name="tipoInteres"  id="tipoInteres" value="variable"> <label
                                             class="custom-control-label">Interés variable</label>
                                     </div>
 
@@ -93,7 +96,7 @@
                                 <div class="form-group col-lg-6">
                                     <label>¿Es primera vivienda?</label>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" name="esPrimeraVivienda"> <label
+                                        <input type="checkbox" class="custom-control-input" name="esPrimeraVivienda" id="esPrimeraVivienda" checked> <label
                                             class="custom-control-label">Primera
                                             vivienda</label>
                                     </div>
@@ -122,21 +125,21 @@
                             <div class="card text-white bg-dark m-1 col-lg-4" style="max-width: 11rem;">
                                 <div class="card-header">Precio inmueble</div>
                                 <div class="card-body">
-                                    <h5 class="card-title"></h5>
+                                    <h5 class="card-title" id="precioInmuebleCard"></h5>
                                 </div>
                             </div>
 
                             <div class="card text-white bg-dark m-1 col-lg-4" style="max-width: 11rem;">
                                 <div class="card-header">Importe inicial</div>
                                 <div class="card-body">
-                                    <h5 class="card-title"></h5>
+                                    <h5 class="card-title" id="importeInicialCard"></h5>
                                 </div>
                             </div>
 
                             <div class="card text-white bg-dark m-1 col-lg-4" style="max-width: 11rem;">
                                 <div class="card-header">Préstamo</div>
                                 <div class="card-body">
-                                    <h5 class="card-title"></h5>
+                                    <h5 class="card-title" id="prestamoCard"></h5>
                                 </div>
                             </div>
                         </div>
@@ -146,23 +149,23 @@
                             <div class="card text-white bg-dark m-1 col-lg-4" style="max-width: 11rem;">
                                 <div class="card-header">Cuota mensual</div>
                                 <div class="card-body">
-                                    <h5 class="card-title"></h5>
+                                    <h5 class="card-title" id="cuotaMensualCard"></h5>
                                 </div>
                             </div>
 
                             <div class="card text-white bg-dark m-1 col-lg-4" style="max-width: 11rem;">
                                 <div class="card-header">
-                                    Interés <strong></strong>
+                                    Interés <strong id="tipointeresCard"></strong>
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title"></h5>
+                                    <h5 class="card-title" id="interesCard"></h5>
                                 </div>
                             </div>
 
                             <div class="card text-white bg-dark m-1 col-lg-4" style="max-width: 11rem;">
                                 <div class="card-header">Total intereses</div>
                                 <div class="card-body">
-                                    <h5 class="card-title"></h5>
+                                    <h5 class="card-title" id="totalInteresCard"></h5>
                                 </div>
                             </div>
 
@@ -173,7 +176,7 @@
                             <div class="card text-white bg-primary m-1">
                                 <div class="card-header">¿Más barato?</div>
                                 <div class="card-body">
-                                    <h5 class="card-title"></h5>
+                                    <h5 class="card-title" id="porcentajeCard"></h5>
                                 </div>
                             </div>
 
@@ -200,17 +203,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="amortizacion : ${amortizaciones}">
-
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                </td>
-
-                            </tr>
+                          
                         </tbody>
                     </table>
                 </div>
